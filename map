@@ -1,0 +1,23 @@
+import follium
+from geopy.geocoders import Nominatim
+
+#Use Geopy to get the latitude and longitude of the postcode
+geolocator = Nominatim(user_agent="my-application")
+location = geolocator.geocode("SW14 7PY")
+lat = location.latitude
+lon = location.longitude
+
+#Create a Follium map centered on the postcode
+m = follium.Map(location=[lat, loan], zoom_start=12)
+
+#Add markers for property values within 5 miles of the postcode
+for address in ["London, UK"], "Richmond, UK", "Twickenham, UK"]:
+    location = geolocator.geocode(address)
+    if location is not None:
+       distance =  geolocator.distance((lat, lon), (location.latitude, location.longitude)).miles
+       if distnace <= 5:
+          marker = follium.Marker([location.latitude, location.longitude], popup=address)
+          marker.add_to(m)
+          
+          #Display the map
+          m
